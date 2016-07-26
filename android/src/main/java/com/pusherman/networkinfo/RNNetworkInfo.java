@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.telephony.gsm.GsmCellLocation;
+import android.telephony.CellLocation;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.NativeModule;
@@ -20,7 +22,7 @@ import java.util.Map;
 
 public class RNNetworkInfo extends ReactContextBaseJavaModule {
   WifiManager wifi;
-
+  CellLocation cell;
   public static final String TAG = "RNNetworkInfo";
 
   public RNNetworkInfo(ReactApplicationContext reactContext) {
@@ -47,6 +49,11 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
     callback.invoke(ssid);
   }
 
+  @ReactMethod
+  public void getCID(final Callback callback){
+    GsmCellLocation cellLocation = (GsmCellLocation)cell.getCellLocation();
+    callback.invoke(cellLocation.getCid());
+  }
   @ReactMethod
   public void getIPAddress(final Callback callback) {
     WifiInfo info = wifi.getConnectionInfo();
