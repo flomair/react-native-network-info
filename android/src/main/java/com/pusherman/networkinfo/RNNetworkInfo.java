@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class RNNetworkInfo extends ReactContextBaseJavaModule {
   WifiManager wifi;
-  CellLocation cell;
+  GsmCellLocation cell;
   TelephonyManager telephonyManager;
   public static final String TAG = "RNNetworkInfo";
 
@@ -54,9 +54,8 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getCID(final Callback callback){
-    callback.invoke(cell.getCid());
+    callback.invoke(cell.getCid() & 0xffff;);
   }
-  
   @ReactMethod
   public void getIPAddress(final Callback callback) {
     WifiInfo info = wifi.getConnectionInfo();
