@@ -11,7 +11,7 @@ var NetworkInfo = {
     RNNetworkInfo.getIPAddress(ip);
   },
 
-  getCID(dic) {
+  getCID(cid) {
     RNNetworkInfo.getCID(cid);
   }
 };
