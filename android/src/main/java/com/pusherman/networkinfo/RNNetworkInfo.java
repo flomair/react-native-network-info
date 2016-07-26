@@ -54,7 +54,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getCID(final Callback callback){
-    callback.invoke(cell.getCid() & 0xffff;);
+    callback.invoke(cell.getCid() & 0xffff);
   }
   @ReactMethod
   public void getIPAddress(final Callback callback) {
