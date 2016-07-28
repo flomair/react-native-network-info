@@ -62,6 +62,9 @@ RCT_EXPORT_METHOD(getIPAddress:(RCTResponseSenderBlock)callback)
     freeifaddrs(interfaces);
     callback(@[address]);
 }
-
+RCT_EXPORT_METHOD(getIPAddress:(RCTResponseSenderBlock)callback)
+{
+    callback("0");
+}
 @end
 
