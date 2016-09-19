@@ -25,12 +25,12 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   WifiManager wifi;
   GsmCellLocation cell;
   TelephonyManager telephonyManager;
+  ReactApplicationContext globalReactContext;
   public static final String TAG = "RNNetworkInfo";
 
   public RNNetworkInfo(ReactApplicationContext reactContext) {
     super(reactContext);
-    telephonyManager = (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
-    cell = (GsmCellLocation) telephonyManager.getCellLocation();
+    globalReactContext = reactContext;
     wifi = (WifiManager)reactContext.getSystemService(Context.WIFI_SERVICE);
   }
 
@@ -54,6 +54,8 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getCID(final Callback callback){
+     telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
+     cell = (GsmCellLocation) telephonyManager.getCellLocation();
     callback.invoke(cell.getCid() & 0xffff);
   }
   @ReactMethod
