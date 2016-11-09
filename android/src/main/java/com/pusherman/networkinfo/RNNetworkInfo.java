@@ -64,9 +64,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   @ReactMethod
     public void getNetworkType(final Callback callback){
        telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-       TelephonyManager mTelephonyManager = (TelephonyManager)
-                   context.getSystemService(Context.TELEPHONY_SERVICE);
-           int networkType = mTelephonyManager.getNetworkType();
+           int networkType = telephonyManager.getNetworkType();
            String networkTypeString;
            switch (networkType) {
                case TelephonyManager.NETWORK_TYPE_GPRS:
