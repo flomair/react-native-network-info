@@ -71,7 +71,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
      telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
      CellInfoGsm cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
      CellSignalStrengthGsm cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
-    callback.invoke(ellSignalStrengthGsm.getDbm());
+    callback.invoke(cellSignalStrengthGsm.getDbm());
   }
 
   @ReactMethod
