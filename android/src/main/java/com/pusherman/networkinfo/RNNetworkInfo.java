@@ -58,6 +58,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
      cell = (GsmCellLocation) telephonyManager.getCellLocation();
     callback.invoke(cell.getCid() & 0xffff);
   }
+
+  @ReactMethod
+  public void getCarrierName(final Callback callback){
+     telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
+     String carrierName = manager.getNetworkOperatorName();
+    callback.invoke(carrierName);
+  }
+
   @ReactMethod
   public void getIPAddress(final Callback callback) {
     WifiInfo info = wifi.getConnectionInfo();
