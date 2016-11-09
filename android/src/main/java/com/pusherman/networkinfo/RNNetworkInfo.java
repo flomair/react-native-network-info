@@ -98,6 +98,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
                    break;
                default:
                    networkTypeString = "not found";
+                   }
       callback.invoke(networkTypeString);
     }
 
