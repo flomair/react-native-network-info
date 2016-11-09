@@ -13,7 +13,7 @@ var NetworkInfo = {
 
   getCID(cid) {
     RNNetworkInfo.getCID(cid);
-  }
+  },
 
   getCarrierName(name) {
     RNNetworkInfo.getCarrierName(name);
