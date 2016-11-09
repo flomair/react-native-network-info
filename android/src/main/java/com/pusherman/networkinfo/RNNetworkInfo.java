@@ -6,7 +6,7 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.telephony.gsm.GsmCellLocation;
 import android.telephony.CellLocation;
-import android.telephony.CellInfoGsm;
+import android.telephony.CellInfoWcdma;
 import android.telephony.CellSignalStrengthGsm;
 import android.telephony.TelephonyManager;
 
@@ -71,7 +71,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
  @ReactMethod
   public void getSignalStrength(final Callback callback){
      telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-     CellInfoGsm cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
+     CellInfoWcdma cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
      CellSignalStrengthGsm cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
     callback.invoke(cellSignalStrengthGsm.getDbm());
   }
