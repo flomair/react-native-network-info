@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.telephony.gsm.GsmCellLocation;
 import android.telephony.CellLocation;
+import android.telephony.CellInfoGsm;
 import android.telephony.TelephonyManager;
 
 import com.facebook.react.bridge.Callback;
