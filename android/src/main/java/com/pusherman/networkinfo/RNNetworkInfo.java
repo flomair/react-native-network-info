@@ -70,34 +70,34 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
            String networkTypeString;
            switch (networkType) {
                case TelephonyManager.NETWORK_TYPE_GPRS:
-                    networkTypeString = 'gprs';
+                    networkTypeString = "gprs";
                     break;
                case TelephonyManager.NETWORK_TYPE_EDGE:
                case TelephonyManager.NETWORK_TYPE_CDMA:
                case TelephonyManager.NETWORK_TYPE_1xRTT:
                case TelephonyManager.NETWORK_TYPE_IDEN:
-                   networkTypeString = 'edge';
+                   networkTypeString = "edge";
                    break;
                case TelephonyManager.NETWORK_TYPE_UMTS:
                case TelephonyManager.NETWORK_TYPE_EVDO_0:
                case TelephonyManager.NETWORK_TYPE_EVDO_A:
                case TelephonyManager.NETWORK_TYPE_HSDPA:
-                     networkTypeString = 'hsdpa';
+                     networkTypeString = "hsdpa";
                      break;
                case TelephonyManager.NETWORK_TYPE_HSUPA:
                case TelephonyManager.NETWORK_TYPE_HSPA:
-                    networkTypeString = 'hspa';
+                    networkTypeString = "hspa";
                     break;
                case TelephonyManager.NETWORK_TYPE_EVDO_B:
                case TelephonyManager.NETWORK_TYPE_EHRPD:
                case TelephonyManager.NETWORK_TYPE_HSPAP:
-                   networkTypeString = 'hspa+';
+                   networkTypeString = "hspa+";
                    break;
                case TelephonyManager.NETWORK_TYPE_LTE:
-                   networkTypeString = 'lte';
+                   networkTypeString = "lte";
                    break;
                default:
-                   networkTypeString = 'not found';
+                   networkTypeString = "not found";
       callback.invoke(networkTypeString);
     }
 
