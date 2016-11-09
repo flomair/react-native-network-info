@@ -21,6 +21,9 @@ var NetworkInfo = {
 
   getSignalStrength(dbm) {
     RNNetworkInfo.getSignalStrength(dbm);
+  },
+  getNetworkType(type) {
+    RNNetworkInfo.getNetworkType(type);
   }
 };
 
