@@ -62,7 +62,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getCarrierName(final Callback callback){
      telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-     String carrierName = manager.getNetworkOperatorName();
+     String carrierName = telephonyManager.getNetworkOperatorName();
     callback.invoke(carrierName);
   }
 
