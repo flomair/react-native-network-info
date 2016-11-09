@@ -66,6 +66,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
     callback.invoke(carrierName);
   }
 
+ @ReactMethod
+  public void getSignalStrength(final Callback callback){
+     telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
+     CellInfoGsm cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
+     CellSignalStrengthGsm cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
+    callback.invoke(ellSignalStrengthGsm.getDbm());
+  }
+
   @ReactMethod
   public void getIPAddress(final Callback callback) {
     WifiInfo info = wifi.getConnectionInfo();

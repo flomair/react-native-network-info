@@ -18,6 +18,10 @@ var NetworkInfo = {
   getCarrierName(name) {
     RNNetworkInfo.getCarrierName(name);
   }
+
+  getSignalStrength(dbm) {
+    RNNetworkInfo.getSignalStrength(dbm);
+  }
 };
 
 module.exports = NetworkInfo;
