@@ -7,7 +7,7 @@ import android.util.Log;
 import android.telephony.gsm.GsmCellLocation;
 import android.telephony.CellLocation;
 import android.telephony.CellInfoWcdma;
-import android.telephony.CellSignalStrengthGsm;
+import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
 
 import com.facebook.react.bridge.Callback;
