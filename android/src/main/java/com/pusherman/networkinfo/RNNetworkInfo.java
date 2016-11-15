@@ -82,10 +82,10 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
                case TelephonyManager.NETWORK_TYPE_HSDPA:
                      networkTypeString = "hsdpa";
                      break;
-               case TelephonyManager.NETWORK_TYPE_HSUPA:
                case TelephonyManager.NETWORK_TYPE_HSPA:
                     networkTypeString = "hspa";
                     break;
+               case TelephonyManager.NETWORK_TYPE_HSUPA:
                case TelephonyManager.NETWORK_TYPE_EVDO_B:
                case TelephonyManager.NETWORK_TYPE_EHRPD:
                case TelephonyManager.NETWORK_TYPE_HSPAP:
@@ -110,10 +110,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
  @ReactMethod
   public void getSignalStrength(final Callback callback){
-     telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-     CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
-     CellSignalStrengthWcdma cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
-    callback.invoke(cellSignalStrengthGsm.getDbm());
+   try {
+        telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
+        CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
+        CellSignalStrengthWcdma cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
+        callback.invoke(cellSignalStrengthGsm.getDbm());
+    } catch (NullPointerException e) {
+         callback.invoke(-99);
+     }
   }
 
   @ReactMethod
