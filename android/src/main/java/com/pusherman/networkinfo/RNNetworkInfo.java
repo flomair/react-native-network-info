@@ -7,6 +7,9 @@ import android.util.Log;
 import android.telephony.gsm.GsmCellLocation;
 import android.telephony.CellLocation;
 import android.telephony.CellInfoWcdma;
+import android.telephony.CellInfoGsm;
+import android.telephony.CellInfoCdma;
+import android.telephony.CellInfoLte;
 import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
 
