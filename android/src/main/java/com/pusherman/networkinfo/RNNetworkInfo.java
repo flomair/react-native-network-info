@@ -27,6 +27,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   WifiManager wifi;
   GsmCellLocation cell;
   TelephonyManager telephonyManager;
+  String dbm;
   ReactApplicationContext globalReactContext;
   public static final String TAG = "RNNetworkInfo";
 
@@ -112,9 +113,23 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   public void getSignalStrength(final Callback callback){
    try {
         telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-        CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
-        CellSignalStrengthWcdma cellSignalStrengthGsm = cellinfogsm.getCellSignalStrength();
-        callback.invoke(cellSignalStrengthGsm.getDbm());
+        if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoWcdma){
+            CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
+            dbm = cellinfogsm.getCellSignalStrength().getDbm();
+        }
+          if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoGsm){
+                    CellInfoGsm cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
+                    dbm = cellinfogsm.getCellSignalStrength().getDbm();
+          }
+           if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoCdma){
+                              CellInfoCdma cellinfogsm = (CellInfoCdma)telephonyManager.getAllCellInfo().get(0);
+                              dbm = cellinfogsm.getCellSignalStrength().getDbm();
+                    }
+              if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoLte){
+                                         CellInfoLte cellinfogsm = (CellInfoLte)telephonyManager.getAllCellInfo().get(0);
+                                         dbm = cellinfogsm.getCellSignalStrength().getDbm();
+                               }
+        callback.invoke(dbm);
     } catch (NullPointerException e) {
          callback.invoke(-99);
      }
