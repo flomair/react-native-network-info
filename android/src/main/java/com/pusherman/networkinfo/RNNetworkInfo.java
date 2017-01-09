@@ -27,7 +27,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   WifiManager wifi;
   GsmCellLocation cell;
   TelephonyManager telephonyManager;
-  String dbm;
+  Integer dbm;
   ReactApplicationContext globalReactContext;
   public static final String TAG = "RNNetworkInfo";
 
