@@ -117,8 +117,8 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
    try {
         telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
         if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoWcdma){
-            CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0).getCellSignalStrength().getDbm();
-            dbm = cellinfogsm;
+            CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
+            dbm = cellinfogsm.getCellSignalStrength().getDbm();
         }
           if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoGsm){
                     CellInfoGsm cellinfogsm = (CellInfoGsm)telephonyManager.getAllCellInfo().get(0);
