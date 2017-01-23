@@ -116,7 +116,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   public void getSignalStrength(final Callback callback){
    try {
         telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if(telephonyManager.getAllCellInfo()!==null){
+        if(telephonyManager.getAllCellInfo()!=null){
         if(telephonyManager.getAllCellInfo().get(0) instanceof CellInfoWcdma){
             CellInfoWcdma cellinfogsm = (CellInfoWcdma)telephonyManager.getAllCellInfo().get(0);
             dbm = cellinfogsm.getCellSignalStrength().getDbm();
