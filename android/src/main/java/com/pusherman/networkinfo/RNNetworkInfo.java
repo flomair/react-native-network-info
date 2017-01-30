@@ -62,7 +62,12 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
   public void getCID(final Callback callback){
      telephonyManager = (TelephonyManager) globalReactContext.getSystemService(Context.TELEPHONY_SERVICE);
      cell = (GsmCellLocation) telephonyManager.getCellLocation();
-    callback.invoke((cell.getCid() & 0xffff), (cell.getLac() & 0xffff), telephonyManager.getNetworkCountryIso(), telephonyManager.getNetworkOperator(), telephonyManager.isNetworkRoaming());
+     if(cell instanceof GsmCellLocation){
+        callback.invoke((cell.getCid() & 0xffff), (cell.getLac() & 0xffff), telephonyManager.getNetworkCountryIso(), telephonyManager.getNetworkOperator(), telephonyManager.isNetworkRoaming());
+     }
+     else{
+        callback.invoke(-1,-1,null,-1,false);
+     }
   }
 
   @ReactMethod
