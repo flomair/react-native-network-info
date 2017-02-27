@@ -1,30 +1,42 @@
+
 'use strict';
+import {NativeModules} from 'react-native';
 
-var RNNetworkInfo = require('react-native').NativeModules.RNNetworkInfo;
 
-var NetworkInfo = {
-  getSSID(ssid) {
-    RNNetworkInfo.getSSID(ssid);
-  },
+const getSSID = NativeModules.RNNetworkInfo.getSSID;
+const getIPAddress = NativeModules.RNNetworkInfo.getIPAddress;
+const getBroadcastAddress = NativeModules.RNNetworkInfo.getBroadcastAddress;
 
-  getIPAddress(ip) {
-    RNNetworkInfo.getIPAddress(ip);
-  },
 
-  getCID(cid) {
-    RNNetworkInfo.getCID(cid);
-  },
 
-  getCarrierName(name) {
-    RNNetworkInfo.getCarrierName(name);
-  },
 
-  getSignalStrength(dbm) {
-    RNNetworkInfo.getSignalStrength(dbm);
-  },
-  getNetworkType(type) {
-    RNNetworkInfo.getNetworkType(type);
-  }
-};
 
-module.exports = NetworkInfo;
+export default  {
+    SSID(){
+        return new Promise((resolve) => {
+                getSSID(info => {
+                resolve(info)
+            });
+    })
+    },
+
+    IP(){
+        return new Promise((resolve) => {
+                getIPAddress(info => {
+                resolve(info)
+            });
+    })
+    },
+
+    broadcastIP(){
+        return new Promise((resolve) => {
+                getBroadcastAddress(info => {
+                resolve(info)
+            });
+    })
+    },
+
+    all (){
+        return Promise.all([this.SSID(),this.IP(),this.broadcastIP()])
+    }
+}
