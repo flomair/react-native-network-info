@@ -85,6 +85,15 @@ NetworkInfo.getIPAddress(ip => {
   console.log(ip);
 });
 
+// Get Broadcast IP
+NetworkInfo.broadcastIP(ip => {
+  console.log(ip);
+});
+
+// Get All -- returns array
+NetworkInfo.all(arr => {
+  console.log(arr);
+});
 ```
 
 ## Dev Notes
