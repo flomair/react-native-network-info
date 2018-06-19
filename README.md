@@ -76,28 +76,15 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 var NetworkInfo = require('react-native-network-info');
 
 // Get SSID
-NetworkInfo.getSSID(ssid => {
-  console.log(ssid);
-});
+NetworkInfo.getSSID(); returns Promise
 
 // Get Local IP
-NetworkInfo.getIPAddress(ip => {
-  console.log(ip);
-});
+NetworkInfo.getIPAddress(); Promise
 
 // Get Broadcast IP
-NetworkInfo.broadcastIP(ip => {
-  console.log(ip);
-});
+NetworkInfo.broadcastIP(); Promise
 
-// Get All -- returns array
-NetworkInfo.all(arr => {
-  console.log(arr);
-});
+// Get All -- {ssid,ip,broadcastIP}
+NetworkInfo.all(): Promise 
 ```
-
-
-## Dev Notes
-Notes on how this package was made can be [found here](http://eastcodes.com/packaging-and-sharing-react-native-modules "Packaging and Sharing React Native Modules").
-
 
