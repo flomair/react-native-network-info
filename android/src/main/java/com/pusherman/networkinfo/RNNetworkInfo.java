@@ -1,22 +1,34 @@
 package com.pusherman.networkinfo;
 
+
+import com.facebook.react.uimanager.*;
+import com.facebook.react.bridge.*;
+import com.facebook.systrace.Systrace;
+import com.facebook.systrace.SystraceMessage;
+// import com.facebook.react.LifecycleState;
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactRootView;
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.NativeModule;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
+
+
 
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
+import java.util.Enumeration;
 import java.util.Map;
 
 public class RNNetworkInfo extends ReactContextBaseJavaModule {
@@ -89,6 +101,7 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
         try {
             Enumeration<NetworkInterface> networkInterface = NetworkInterface.getNetworkInterfaces();
 
+
             while (broadcastAddress == null && networkInterface.hasMoreElements()) {
                 NetworkInterface singleInterface = networkInterface.nextElement();
                 String interfaceName = singleInterface.getName();
@@ -112,6 +125,37 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
              found_bcast_address = getBroadcastInner();
         }
         callback.invoke(found_bcast_address);
+    }
+
+
+
+    private  String  getBroadcastInner() {
+
+
+
+        DhcpInfo dhcp = wifi.getDhcpInfo();
+        // handle null somehow
+
+        int ip = (dhcp.ipAddress & dhcp.netmask) | ~dhcp.netmask;
+
+        if (ByteOrder.nativeOrder().equals(ByteOrder.LITTLE_ENDIAN)) {
+            ip = Integer.reverseBytes(ip);
+        }
+        // Now that the value is guaranteed to be big-endian, we can convert it to
+        // an array whose first element is the high byte.
+        byte[] ipByteArray = BigInteger.valueOf(ip).toByteArray();
+
+        String ipAddressString;
+        try {
+            // `getByAddress()` wants network byte-order, aka big-endian.
+            // Good thing we planned ahead!
+            ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
+        } catch (UnknownHostException ex) {
+            Log.e(TAG, "Unable to determine IP address.");
+            ipAddressString = null;
+        }
+
+       return ipAddressString;
     }
 
 
