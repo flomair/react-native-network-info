@@ -81,35 +81,38 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
     callback.invoke(ipAddressString);
   }
 
-  @ReactMethod
-  public void getBroadcastAddress(final Callback callback) {
-    WifiInfo info = wifi.getConnectionInfo();
+@ReactMethod
+    public void getBroadcastAddress(final Callback callback) {
+        //String found_bcast_address = getBroadcastInner();
+        System.setProperty("java.net.preferIPv4Stack", "true");
+        InetAddress broadcastAddress = null;
+        try {
+            Enumeration<NetworkInterface> networkInterface = NetworkInterface.getNetworkInterfaces();
 
+            while (broadcastAddress == null && networkInterface.hasMoreElements()) {
+                NetworkInterface singleInterface = networkInterface.nextElement();
+                String interfaceName = singleInterface.getName();
+                if (interfaceName.contains("wlan0")|| interfaceName.contains("eth0")) {
+                    for (InterfaceAddress infaceAddress : singleInterface.getInterfaceAddresses()) {
+                        broadcastAddress = infaceAddress.getBroadcast();
+                        if (broadcastAddress != null) {
+                            break;
+                        }
+                    }
+                }
+            }
 
-    DhcpInfo dhcp = wifi.getDhcpInfo();
-    // handle null somehow
-
-    int ip = (dhcp.ipAddress & dhcp.netmask) | ~dhcp.netmask;
-
-    if (ByteOrder.nativeOrder().equals(ByteOrder.LITTLE_ENDIAN)) {
-      ip = Integer.reverseBytes(ip);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        String found_bcast_address = "255.255.255.255" ;
+        if(broadcastAddress != null){
+             found_bcast_address = broadcastAddress.toString().replace("/", "");
+        }else{
+             found_bcast_address = getBroadcastInner();
+        }
+        callback.invoke(found_bcast_address);
     }
-    // Now that the value is guaranteed to be big-endian, we can convert it to
-    // an array whose first element is the high byte.
-    byte[] ipByteArray = BigInteger.valueOf(ip).toByteArray();
-
-    String ipAddressString;
-    try {
-      // `getByAddress()` wants network byte-order, aka big-endian.
-      // Good thing we planned ahead!
-      ipAddressString = InetAddress.getByAddress(ipByteArray).getHostAddress();
-    } catch (UnknownHostException ex) {
-      Log.e(TAG, "Unable to determine IP address.");
-      ipAddressString = null;
-    }
-
-    callback.invoke(ipAddressString);
-  }
 
 
 }

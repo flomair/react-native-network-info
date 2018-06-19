@@ -1,4 +1,3 @@
-
 'use strict';
 import {NativeModules} from 'react-native';
 
@@ -14,29 +13,32 @@ const getBroadcastAddress = NativeModules.RNNetworkInfo.getBroadcastAddress;
 export default  {
     SSID(){
         return new Promise((resolve) => {
-                getSSID(info => {
+            getSSID(info => {
                 resolve(info)
             });
-    })
+        })
     },
 
     IP(){
         return new Promise((resolve) => {
-                getIPAddress(info => {
+            getIPAddress(info => {
                 resolve(info)
             });
-    })
+        })
     },
 
     broadcastIP(){
         return new Promise((resolve) => {
-                getBroadcastAddress(info => {
+            getBroadcastAddress(info => {
                 resolve(info)
             });
-    })
+        })
     },
 
-    all (){
-        return Promise.all([this.SSID(),this.IP(),this.broadcastIP()])
+    async all () {
+        const [ssid,ip,broadcastIP] = await Promise.all([this.SSID(),this.IP(),this.broadcastIP()])
+        return{
+            ssid,ip,broadcastIP
+        }
     }
 }
